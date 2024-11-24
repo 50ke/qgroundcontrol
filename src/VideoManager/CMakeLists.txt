@@ -5,6 +5,8 @@ qt_add_library(VideoManager STATIC
     SubtitleWriter.h
     VideoManager.cc
     VideoManager.h
+    LidarManager.cc
+    LidarManager.h
 )
 
 # option(QGC_ENABLE_VIDEOSTREAMING "Enable video streaming" ON)

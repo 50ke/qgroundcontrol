@@ -62,6 +62,7 @@
 #include "Vehicle.h"
 #include "VehicleComponent.h"
 #include "VideoManager.h"
+#include "LidarManager.h"
 
 #ifndef QGC_DISABLE_MAVLINK_INSPECTOR
 #include "MAVLinkInspectorController.h"
@@ -317,6 +318,7 @@ void QGCApplication::_initForNormalAppBoot()
 #endif
 
     VideoManager::instance(); // GStreamer must be initialized before QmlEngine
+    LidarManager::instance();
 
     QQuickStyle::setStyle("Basic");
     _qmlAppEngine = _toolbox->corePlugin()->createQmlApplicationEngine(this);
@@ -331,6 +333,7 @@ void QGCApplication::_initForNormalAppBoot()
     _qmlAppEngine->addImageProvider(qgcImageProviderId, new QGCImageProvider());
 
     VideoManager::instance()->init();
+    LidarManager::instance()->init();
 
     // Safe to show popup error messages now that main window is created
     _showErrorsInToolbar = true;
