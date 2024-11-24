@@ -104,7 +104,8 @@ static void _qgcputenv(const QString &key, const QString &root, const QString &p
 
 static void _setGstEnvVars()
 {
-    const QString currentDir = QCoreApplication::applicationDirPath();
+    // const QString currentDir = QCoreApplication::applicationDirPath();
+    const QString currentDir = "C:/gstreamer/1.0/msvc_x86_64";
 
 #if defined(Q_OS_MAC)
     _qgcputenv("GST_REGISTRY_REUSE_PLUGIN_SCANNER", "no");
@@ -118,13 +119,21 @@ static void _setGstEnvVars()
     _qgcputenv("GTK_PATH", currentDir, "/../Frameworks/GStreamer.framework/Versions/1.0");
 #elif defined(Q_OS_WIN)
     _qgcputenv("GST_REGISTRY_REUSE_PLUGIN_SCANNER", "no");
-    _qgcputenv("GST_PLUGIN_SCANNER", currentDir, "/../libexec/gstreamer-1.0/gst-plugin-scanner");
-    _qgcputenv("GST_PTP_HELPER_1_0", currentDir, "/../libexec/gstreamer-1.0/gst-ptp-helper");
-    _qgcputenv("GIO_EXTRA_MODULES", currentDir, "/../lib/gio/modules");
-    _qgcputenv("GST_PLUGIN_SYSTEM_PATH_1_0", currentDir, "/../lib/gstreamer-1.0");
-    _qgcputenv("GST_PLUGIN_SYSTEM_PATH", currentDir, "/../lib/gstreamer-1.0");
-    _qgcputenv("GST_PLUGIN_PATH_1_0", currentDir, "/../lib/gstreamer-1.0");
-    _qgcputenv("GST_PLUGIN_PATH", currentDir, "/../lib/gstreamer-1.0");
+    // _qgcputenv("GST_PLUGIN_SCANNER", currentDir, "/../libexec/gstreamer-1.0/gst-plugin-scanner");
+    // _qgcputenv("GST_PTP_HELPER_1_0", currentDir, "/../libexec/gstreamer-1.0/gst-ptp-helper");
+    // _qgcputenv("GIO_EXTRA_MODULES", currentDir, "/../lib/gio/modules");
+    // _qgcputenv("GST_PLUGIN_SYSTEM_PATH_1_0", currentDir, "/../lib/gstreamer-1.0");
+    // _qgcputenv("GST_PLUGIN_SYSTEM_PATH", currentDir, "/../lib/gstreamer-1.0");
+    // _qgcputenv("GST_PLUGIN_PATH_1_0", currentDir, "/../lib/gstreamer-1.0");
+    // _qgcputenv("GST_PLUGIN_PATH", currentDir, "/../lib/gstreamer-1.0");
+
+    _qgcputenv("GST_PLUGIN_SCANNER", currentDir, "/libexec/gstreamer-1.0/gst-plugin-scanner");
+    _qgcputenv("GST_PTP_HELPER_1_0", currentDir, "/libexec/gstreamer-1.0/gst-ptp-helper");
+    _qgcputenv("GIO_EXTRA_MODULES", currentDir, "/lib/gio/modules");
+    _qgcputenv("GST_PLUGIN_SYSTEM_PATH_1_0", currentDir, "/lib/gstreamer-1.0");
+    _qgcputenv("GST_PLUGIN_SYSTEM_PATH", currentDir, "/lib/gstreamer-1.0");
+    _qgcputenv("GST_PLUGIN_PATH_1_0", currentDir, "/lib/gstreamer-1.0");
+    _qgcputenv("GST_PLUGIN_PATH", currentDir, "/lib/gstreamer-1.0");
 #endif
 }
 
