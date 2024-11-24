@@ -19,6 +19,29 @@
  cd qgroundcontrol/
  git submodule update --recursive
 ```
+#### 环境安装
+- QT: 6.6.3
+- 编译器: MSVC 2019（下载地址：https://aka.ms/vs/16/release/vs_community.exe）
+- 操作系统: Windows10/11
+#### Gstreamer安装
+- 创建目录: C:\gstreamer
+- 下载地址: https://gstreamer.freedesktop.org/data/pkg/windows/1.18.6/msvc/
+- 安装文件: gstreamer-1.0-msvc-x86_64-1.18.6.msi 和 gstreamer-1.0-devel-msvc-x86_64-1.18.6.msi
+- 将【安装文件】复制到C:\gstreamer并打开powershell
+- 执行命令: msiexec /passive INSTALLLEVEL=1000 INSTALLDIR=C:\gstreamer /i gstreamer-1.0-msvc-x86_64-1.18.6.msi
+- 执行命令: msiexec /passive INSTALLLEVEL=1000 INSTALLDIR=C:\gstreamer /i gstreamer-1.0-devel-msvc-x86_64-1.18.6.msi
+- 安装检查: cmd执行 gst-inspect-1.0 tee
+![gstreamer-dir.png](docs/images/gstreamer-dir.png)
+![gstreamer-check.png](docs/images/gstreamer-check.png)
+#### 编译构建
+- 打开qtcreator
+- 打开项目qgroundcontrol/CMakeLists.txt
+- 编译运行
+![building.png](docs/images/building.png)
+#### 注意事项
+- 如果gstreamer安装在其他路径，需要修改以下文件: 
+![bugfix.png](docs/images/bugfix.png)
+#### 打包发布
 
 ---
 
