@@ -30,6 +30,14 @@
 - 将【安装文件】复制到C:\gstreamer并打开powershell
 - 执行命令: msiexec /passive INSTALLLEVEL=1000 INSTALLDIR=C:\gstreamer /i gstreamer-1.0-msvc-x86_64-1.18.6.msi
 - 执行命令: msiexec /passive INSTALLLEVEL=1000 INSTALLDIR=C:\gstreamer /i gstreamer-1.0-devel-msvc-x86_64-1.18.6.msi
+- 系统环境变量设置
+```
+GST_PLUGIN_PATH > C:\gstreamer\1.0\msvc_x86_64\lib\gstreamer-1.0
+
+GSTREAMER_ROOT_X86_64 > C:\gstreamer\1.0\msvc_x86_64
+
+Path > C:\gstreamer\1.0\msvc_x86_64\bin
+```
 - 安装检查: cmd执行 gst-inspect-1.0 tee
 ![gstreamer-dir.png](docs/images/gstreamer-dir.png)
 ![gstreamer-check.png](docs/images/gstreamer-check.png)
