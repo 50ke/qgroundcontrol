@@ -12,6 +12,15 @@
 *QGroundControl* (QGC) is a highly intuitive and powerful Ground Control Station (GCS) designed for UAVs. Whether you're a first-time pilot or an experienced professional, QGC provides a seamless user experience for flight control and mission planning, making it the go-to solution for any *MAVLink-enabled drone*.
 
 ---
+### 编译运行
+#### 克隆代码
+```
+ git clone --recursive https://github.com/50ke/qgroundcontrol.git
+ cd qgroundcontrol/
+ git submodule update --recursive
+```
+
+---
 
 ### 🌟 *Why Choose QGroundControl?*
 
