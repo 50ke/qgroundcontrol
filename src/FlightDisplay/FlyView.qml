@@ -105,14 +105,14 @@ Item {
         }
 
         Rectangle{
-            width: 400
-            height: 300
+            width: videoControl.width
+            height: videoControl.height
             anchors.right:           parent.right
             anchors.bottom:         parent.bottom
             color: "red"
             MediaPlayer{
                 id: playerId
-                source: "rtsp://127.0.0.1:8554/lzj"
+                source: QGroundControl.settingsManager.videoSettings.rtspUrl.rawValue
                 videoOutput: videoOut
             }
             VideoOutput{
@@ -120,6 +120,16 @@ Item {
                 anchors.fill: parent
             }
             Component.onCompleted: {
+                console.log("Lidar Stream Url: " + QGroundControl.settingsManager.videoSettings.rtspUrl.rawValue)
+                playerId.setPlaybackRate(50)
+                playerId.play()
+            }
+        }
+
+        Connections{
+            target: QGroundControl.videoManager
+            function onIsStreamSourceChanged(){
+                console.log("Changed Lidar Stream Url: " + QGroundControl.settingsManager.videoSettings.rtspUrl.rawValue)
                 playerId.setPlaybackRate(50)
                 playerId.play()
             }
