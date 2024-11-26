@@ -29,6 +29,7 @@ import QGroundControl.Vehicle
 
 // 3D Viewer modules
 import Viewer3D
+import QtMultimedia
 
 Item {
     id: _root
@@ -102,6 +103,28 @@ Item {
             mapName:                "FlightDisplayView"
             enabled:                !viewer3DWindow.isOpen
         }
+
+        Rectangle{
+            width: 400
+            height: 300
+            anchors.right:           parent.right
+            anchors.bottom:         parent.bottom
+            color: "red"
+            MediaPlayer{
+                id: playerId
+                source: "rtsp://127.0.0.1:8554/lzj"
+                videoOutput: videoOut
+            }
+            VideoOutput{
+                id: videoOut
+                anchors.fill: parent
+            }
+            Component.onCompleted: {
+                playerId.setPlaybackRate(50)
+                playerId.play()
+            }
+        }
+
 
         FlyViewVideo {
             id:         videoControl
