@@ -87,7 +87,7 @@ Item {
         id:                 bottomRightRowLayout
         anchors.margins:    _layoutMargin
         anchors.bottom:     parent.bottom
-        anchors.right:      parent.right
+        anchors.horizontalCenter:      parent.horizontalCenter
         spacing:            _layoutSpacing
 
         property real bottomEdgeRightInset:     height + _layoutMargin

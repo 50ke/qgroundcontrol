@@ -29,6 +29,8 @@ import QGroundControl.Vehicle
 
 // 3D Viewer modules
 import Viewer3D
+import QtMultimedia
+import org.freedesktop.gstreamer.Qt6GLVideoItem
 
 Item {
     id: _root
@@ -103,6 +105,29 @@ Item {
             enabled:                !viewer3DWindow.isOpen
         }
 
+        // =====================雷达
+        FlyViewLidar {
+            id:         lidarControl
+            pipView:  _lidarPipView
+        }
+
+        PipView {
+            id:                     _lidarPipView
+            anchors.right:           parent.right
+            anchors.bottom:         parent.bottom
+            anchors.margins:        _toolsMargin
+            item1IsFullSettingsKey: "MainFlyWindowIsMap"
+            item1:                  mapControl
+            item2:                  QGroundControl.lidarManager.hasVideo ? lidarControl : null
+            show:                   QGroundControl.lidarManager.hasVideo && !QGroundControl.lidarManager.fullScreen &&
+                                        (lidarControl.pipState.state === lidarControl.pipState.pipState || mapControl.pipState.state === mapControl.pipState.pipState)
+            z:                      QGroundControl.zOrderWidgets
+
+            property real leftEdgeBottomInset: visible ? width + anchors.margins : 0
+            property real bottomEdgeLeftInset: visible ? height + anchors.margins : 0
+        }
+
+        // ======================相机
         FlyViewVideo {
             id:         videoControl
             pipView:    _pipView
