@@ -447,7 +447,7 @@ void LidarManager::_initVideo()
         return;
     }
 
-    const QStringList widgetTypes = {"lidarContent", "thermalVideo"};
+    const QStringList widgetTypes = {"lidarContent", "lidarThermalVideo"};
     for (VideoReceiverData &videoReceiver : _videoReceiverData) {
         QQuickItem* const widget = root->findChild<QQuickItem*>(widgetTypes.at(videoReceiver.index));
         if ((widget != nullptr) && (videoReceiver.receiver != nullptr)) {

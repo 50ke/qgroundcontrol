@@ -41,6 +41,7 @@
 #include "ToolStripAction.h"
 #include "ToolStripActionList.h"
 #include "VideoManager.h"
+#include "LidarManager.h"
 #ifndef NO_SERIAL_LINK
 #include "GPSManager.h"
 #include "GPSRtk.h"
@@ -111,6 +112,7 @@ QGroundControlQmlGlobal::QGroundControlQmlGlobal(QGCApplication* app, QGCToolbox
     , _adsbVehicleManager(ADSBVehicleManager::instance())
     , _qgcPositionManager(QGCPositionManager::instance())
     , _missionCommandTree(MissionCommandTree::instance())
+    , _lidarManager(LidarManager::instance())
     , _videoManager(VideoManager::instance())
 #ifndef QGC_AIRLINK_DISABLED
     , _airlinkManager(AirLinkManager::instance())

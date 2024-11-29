@@ -224,6 +224,7 @@
         <file alias="QGroundControl/FactControls/LabelledFactSlider.qml">src/FactSystem/FactControls/LabelledFactSlider.qml</file>
         <file alias="QGroundControl/FactControls/qmldir">src/QmlControls/QGroundControl/FactControls/qmldir</file>
         <file alias="QGroundControl/FlightDisplay/FlightDisplayViewVideo.qml">src/FlightDisplay/FlightDisplayViewVideo.qml</file>
+        <file alias="QGroundControl/FlightDisplay/FlightDisplayViewLidar.qml">src/FlightDisplay/FlightDisplayViewLidar.qml</file>
         <file alias="QGroundControl/FlightDisplay/FlyView.qml">src/FlightDisplay/FlyView.qml</file>
         <file alias="QGroundControl/FlightDisplay/FlyViewBottomRightRowLayout.qml">src/FlightDisplay/FlyViewBottomRightRowLayout.qml</file>
         <file alias="QGroundControl/FlightDisplay/FlyViewCustomLayer.qml">src/FlightDisplay/FlyViewCustomLayer.qml</file>
@@ -237,6 +238,7 @@
         <file alias="QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml">src/FlightDisplay/FlyViewToolStripActionList.qml</file>
         <file alias="QGroundControl/FlightDisplay/FlyViewTopRightColumnLayout.qml">src/FlightDisplay/FlyViewTopRightColumnLayout.qml</file>
         <file alias="QGroundControl/FlightDisplay/FlyViewVideo.qml">src/FlightDisplay/FlyViewVideo.qml</file>
+        <file alias="QGroundControl/FlightDisplay/FlyViewLidar.qml">src/FlightDisplay/FlyViewLidar.qml</file>
         <file alias="QGroundControl/FlightDisplay/OnScreenGimbalController.qml">src/FlightDisplay/OnScreenGimbalController.qml</file>
         <file alias="QGroundControl/FlightDisplay/FlyViewWidgetLayer.qml">src/FlightDisplay/FlyViewWidgetLayer.qml</file>
         <file alias="QGroundControl/FlightDisplay/GuidedActionActionList.qml">src/FlightDisplay/GuidedActionActionList.qml</file>
