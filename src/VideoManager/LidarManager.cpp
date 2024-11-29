@@ -41,6 +41,8 @@
 #include <QtQml/QQmlEngine>
 #include <QtQuick/QQuickItem>
 
+#include "mdkplayer.h"
+
 QGC_LOGGING_CATEGORY(LidarManagerLog, "qgc.lidarmanager.lidarmanager")
 
 static constexpr const char *kFileExtension[VideoReceiver::FILE_FORMAT_MAX - VideoReceiver::FILE_FORMAT_MIN] = {
@@ -64,6 +66,7 @@ LidarManager::LidarManager(QObject *parent)
 
     (void) qmlRegisterUncreatableType<LidarManager> ("QGroundControl.LidarManager", 1, 0, "LidarManager", "Reference only");
     (void) qmlRegisterUncreatableType<VideoReceiver>("QGroundControl", 1, 0, "VideoReceiver","Reference only");
+    (void) qmlRegisterType<MDK_NS::QmlMDKPlayer>("MDKPlayer", 1, 0, "MDKPlayer");
 
 #ifdef QGC_GST_STREAMING
     GStreamer::initialize();
