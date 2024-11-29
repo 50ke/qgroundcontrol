@@ -667,7 +667,7 @@ bool LidarManager::_updateSettings(unsigned id)
         } else if (source == VideoSettings::videoSourceMPEGTS) {
             settingsChanged |= _updateVideoUri(id, QStringLiteral("mpegts://0.0.0.0:%1").arg(_videoSettings->udpPort()->rawValue().toInt()));
         } else if (source == VideoSettings::videoSourceRTSP) {
-            settingsChanged |= _updateVideoUri(id, _videoSettings->rtspUrl()->rawValue().toString());
+            settingsChanged |= _updateVideoUri(id, _videoSettings->rtspUrl()->rawValue().toString() + "/lidar");
         } else if (source == VideoSettings::videoSourceTCP) {
             settingsChanged |= _updateVideoUri(id, QStringLiteral("tcp://%1").arg(_videoSettings->tcpUrl()->rawValue().toString()));
         } else if (source == VideoSettings::videoSource3DRSolo) {
