@@ -18,6 +18,7 @@ public:
     ~MqttManager();
     void start();
     Q_INVOKABLE void changeGear(int value);
+    void loadConfig();
 
 public slots:
     void handleMessage(const QVariantMap newSetting);
@@ -28,5 +29,8 @@ signals:
 private:
     QThread mMqttLinkWorkThread;
     MqttLink *mMqttLink = nullptr;
+    QString mMqttServerAddr{};
+    QString mMqttSubTopic{};
+    QString mMqttPubTopic{};
 };
 #endif // MQTTMANAGER_H

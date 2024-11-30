@@ -7,6 +7,9 @@ find_package(Qt6 REQUIRED COMPONENTS Core Network Qml Test Widgets)
 find_package(PahoMqttCpp REQUIRED PATHS ${CMAKE_SOURCE_DIR}/libs/PahoMqttCpp)
 include_directories(${CMAKE_SOURCE_DIR}/libs/PahoMqttCpp/include)
 
+configure_file(QGC-Mqtt-Config.json ${CMAKE_CURRENT_BINARY_DIR}/QGC-Mqtt-Config.json COPYONLY)
+
+
 qt_add_library(Comms STATIC
     LinkConfiguration.cc
     LinkConfiguration.h

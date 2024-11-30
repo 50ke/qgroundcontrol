@@ -2,14 +2,29 @@
 #include "QGCApplication.h"
 
 MqttManager::MqttManager(QGCApplication *app, QGCToolbox *toolbox) : QGCTool(app, toolbox){
-    // const QString hostName = _toolbox->settingsManager()->appSettings()->forwardMavlinkAPMSupportHostName()->rawValue().toString();
-    // qDebug() << "=============qqqqqqqqqqq===============: " << hostName;
-    mMqttLink = new MqttLink("mqtt://110.187.226.202:1883", "QGC");
+    loadConfig();
+    mMqttLink = new MqttLink(mMqttServerAddr, mMqttSubTopic);
 }
 
 MqttManager::~MqttManager(){
     mMqttLinkWorkThread.quit();
     mMqttLinkWorkThread.wait();
+}
+
+void MqttManager::loadConfig(){
+    QFile file(QStringLiteral(":/json/QGC-Mqtt-Config.json"));
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        throw std::runtime_error("Cannot read QGC-Mqtt-Config.json");
+    }
+    QByteArray byteArray = file.readAll();
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(byteArray);
+    if (jsonDoc.isNull() || !jsonDoc.isObject()){
+        throw std::runtime_error("Failed to Parse QGC-Mqtt-Config.json");
+    }
+    QJsonObject jsonObject = jsonDoc.object();
+    this->mMqttServerAddr = jsonObject.value("server").toString();
+    this->mMqttSubTopic = jsonObject.value("subTopic").toString();
+    this->mMqttPubTopic = jsonObject.value("pubTopic").toString();
 }
 
 void MqttManager::start(){
@@ -32,5 +47,5 @@ void MqttManager::changeGear(int value){
     QJsonObject jsonObject = QJsonObject::fromVariantMap(cmd);
     QJsonDocument jsonDocument(jsonObject);
     QString jsonString = jsonDocument.toJson();
-    mMqttLink->publishedMessage("USV", jsonString);
+    mMqttLink->publishedMessage(mMqttPubTopic, jsonString);
 }
