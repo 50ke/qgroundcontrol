@@ -14,6 +14,7 @@
 #include <QtCore/QObject>
 
 class LinkManager;
+class MqttManager;
 class MAVLinkProtocol;
 class MultiVehicleManager;
 class QGCApplication;
@@ -28,6 +29,7 @@ public:
     QGCToolbox(QGCApplication* app);
 
     LinkManager*                linkManager             () { return _linkManager; }
+    MqttManager*                mqttManager             () { return _mqttManager; }
     MAVLinkProtocol*            mavlinkProtocol         () { return _mavlinkProtocol; }
     MultiVehicleManager*        multiVehicleManager     () { return _multiVehicleManager; }
     QGCCorePlugin*              corePlugin              () { return _corePlugin; }
@@ -38,6 +40,7 @@ private:
     void _scanAndLoadPlugins(QGCApplication *app);
 
     LinkManager*                _linkManager            = nullptr;
+    MqttManager*                _mqttManager            = nullptr;
     MAVLinkProtocol*            _mavlinkProtocol        = nullptr;
     MultiVehicleManager*        _multiVehicleManager    = nullptr;
     QGCCorePlugin*              _corePlugin             = nullptr;

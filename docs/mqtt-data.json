@@ -1,0 +1,13 @@
+{
+  "Oil": {
+    "CurrentOilQuantity": 0,
+    "TotalOilQuantity": 0,
+    "RemainingOilQuantity": 2,
+    "RemainingMileage": 2,
+    "DrivingMileage": 2
+  },
+  "Electricity": {
+    "RemainingElectricity": 40,
+    "BatteryTemperature": 10
+  }
+}

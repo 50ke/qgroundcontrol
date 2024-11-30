@@ -41,6 +41,7 @@
 #include "JoystickManager.h"
 #include "JsonHelper.h"
 #include "LinkManager.h"
+#include "MqttManager.h"
 #include "LogDownloadController.h"
 #include "MAVLinkChartController.h"
 #include "MAVLinkConsoleController.h"
@@ -308,6 +309,8 @@ void QGCApplication::init()
     } else {
         AudioOutput::instance()->setMuted(true);
     }
+
+    _toolbox->mqttManager()->start();
 }
 
 void QGCApplication::_initForNormalAppBoot()
