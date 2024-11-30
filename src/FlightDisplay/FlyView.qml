@@ -35,6 +35,9 @@ import org.freedesktop.gstreamer.Qt6GLVideoItem
 Item {
     id: _root
 
+    property bool batteryTemperatureWarn: false
+    property bool remainingElectricityWarn: false
+
     // These should only be used by MainRootWindow
     property var planController:    _planController
     property var guidedController:  _guidedController
@@ -107,17 +110,17 @@ Item {
 
         Rectangle{
             width: 150
-            height: 200
+            height: 240
             color: "#212529"
             opacity: 0.8
-            radius: 2
+            radius: 5
             anchors.right: parent.right
             anchors.rightMargin: 10
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 300
             Column{
                 anchors.fill: parent
-                spacing: 2
+                spacing: 5
                 leftPadding: 10
                 topPadding: 10
                 Text {
@@ -145,15 +148,38 @@ Item {
                     color: "#FFFFFF"
                     text: qsTr("行驶里程: 0Km")
                 }
-                Text {
-                    id: remainingElectricityId
-                    color: "#FFFFFF"
-                    text: qsTr("剩余电量: 0%")
+                Row{
+                    spacing: 5
+                    Text {
+                        id: remainingElectricityId
+                        color: "#FFFFFF"
+                        text: qsTr("剩余电量: 0%")
+                    }
+                    Image {
+                        id: remainingElectricityImgId
+                        anchors.verticalCenter: parent.verticalCenter
+                        visible: false
+                        width: 16
+                        height: 16
+                        source: "qrc:/qmlimages/Yield.svg"
+                    }
                 }
-                Text {
-                    id: batteryTemperatureId
-                    color: "#FFFFFF"
-                    text: qsTr("电池温度: 0°")
+                Row{
+                    spacing: 5
+                    Text {
+                        id: batteryTemperatureId
+                        anchors.verticalCenter: parent.verticalCenter
+                        color: "#FFFFFF"
+                        text: qsTr("电池温度: 0°")
+                    }
+                    Image {
+                        id: batteryTemperatureImgId
+                        anchors.verticalCenter: parent.verticalCenter
+                        visible: false
+                        width: 16
+                        height: 16
+                        source: "qrc:/qmlimages/Yield.svg"
+                    }
                 }
                 Item {
                     width: 10
@@ -169,7 +195,7 @@ Item {
                         text: "D"
                         font.pixelSize: 12
                         font.weight: Font.DemiBold
-                        onDoubleClicked: {
+                        onClicked: {
                             QGroundControl.mqttManager.changeGear(0)
                         }
                     }
@@ -181,7 +207,7 @@ Item {
                         text: "N"
                         font.pixelSize: 12
                         font.weight: Font.DemiBold
-                        onDoubleClicked: {
+                        onClicked: {
                             QGroundControl.mqttManager.changeGear(1)
                         }
                     }
@@ -193,7 +219,7 @@ Item {
                         text: "R"
                         font.pixelSize: 12
                         font.weight: Font.DemiBold
-                        onDoubleClicked: {
+                        onClicked: {
                             QGroundControl.mqttManager.changeGear(2)
                         }
                     }
@@ -211,6 +237,27 @@ Item {
                 drivingMileageId.text = "行驶里程: %1Km".arg(data["Oil"]["DrivingMileage"])
                 remainingElectricityId.text = "剩余电量: %1%".arg(data["Electricity"]["RemainingElectricity"])
                 batteryTemperatureId.text = "电池温度: %1°".arg(data["Electricity"]["BatteryTemperature"])
+
+                // BatteryEMERGENCY.svg
+                if(data["Electricity"]["RemainingElectricity"] < 20){
+                    remainingElectricityImgId.visible = true
+                    if(!remainingElectricityWarn){
+                        mainWindow.showMessageDialog("警告", "电池电量过低！")
+                        remainingElectricityWarn = true
+                    }
+                }else{
+                    remainingElectricityImgId.visible = false
+                }
+
+                if(data["Electricity"]["BatteryTemperature"] > 60){
+                    batteryTemperatureImgId.visible = true
+                    if(!batteryTemperatureWarn){
+                        mainWindow.showMessageDialog("警告", "电池温度过高！")
+                        batteryTemperatureWarn = true
+                    }
+                }else{
+                    batteryTemperatureImgId.visible = false
+                }
             }
         }
 
