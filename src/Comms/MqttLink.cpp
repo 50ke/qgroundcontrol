@@ -38,9 +38,7 @@ void MqttLinkCallback::on_success(const mqtt::token &tok){}
 
 void MqttLinkCallback::connected(const std::string &cause){
     qInfo() << "[MqttLink]Connected.";
-    auto subTopics  = mqtt::string_collection::create({mSubTopic});
-    const std::vector<int> qos{1, 1};
-    mMqttClientPtr->subscribe(subTopics, qos, nullptr, mSubActionListener);
+    mMqttClientPtr->subscribe(mSubTopic, 1, nullptr, mSubActionListener);
 }
 
 void MqttLinkCallback::connection_lost(const std::string &cause){
@@ -73,13 +71,21 @@ MqttLink::MqttLink(const QString &serverAddr, const QString &subTopic)
 }
 
 void MqttLink::subscribedMessage(const std::string &payload){
-    qDebug() << "Data received from mqtt: " << payload;
+    qDebug() << "======>Data received from mqtt: " << payload;
     QJsonDocument jsonDoc = QJsonDocument::fromJson(QString::fromStdString(payload).toUtf8());
     QVariantMap msg = jsonDoc.toVariant().toMap();
     emit notifyMessage(msg);
 }
 
 void MqttLink::start(){
-    mAsyncMqttClientPtr->set_callback(*mMqttLinkCallback);
-    mAsyncMqttClientPtr->connect(mConnectOptions, nullptr, *mMqttLinkCallback)->wait();
+    try {
+        mAsyncMqttClientPtr->set_callback(*mMqttLinkCallback);
+        mAsyncMqttClientPtr->connect(mConnectOptions, nullptr, *mMqttLinkCallback)->wait();
+    }
+    catch (const mqtt::exception& exc) {
+        qCritical() << "ERROR: Unable to connect to MQTT server.";
+    }
+    catch (...) {
+        qCritical() << "ERROR: Caught unknown mqtt exception";
+    }
 }

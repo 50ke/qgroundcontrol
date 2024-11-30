@@ -20,7 +20,7 @@ void MqttManager::start(){
 }
 
 void MqttManager::handleMessage(const QVariantMap message){
-    // const QString hostName = _toolbox->settingsManager()->appSettings()->forwardMavlinkAPMSupportHostName()->rawValue().toString();
-    // qDebug() << "============================: " << hostName;
+    const QString hostName = _toolbox->settingsManager()->appSettings()->forwardMavlinkAPMSupportHostName()->rawValue().toString();
+    qDebug() << "============================: " << hostName;
     emit updateMessage(message);
 }
