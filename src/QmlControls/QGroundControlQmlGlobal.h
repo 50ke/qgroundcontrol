@@ -22,6 +22,7 @@ class QGCApplication;
 class ADSBVehicleManager;
 class FactGroup;
 class LinkManager;
+class MqttManager;
 class MissionCommandTree;
 class MultiVehicleManager;
 class QGCCorePlugin;
@@ -37,6 +38,7 @@ class AirLinkManager;
 Q_MOC_INCLUDE("ADSBVehicleManager.h")
 Q_MOC_INCLUDE("FactGroup.h")
 Q_MOC_INCLUDE("LinkManager.h")
+Q_MOC_INCLUDE("MqttManager.h")
 Q_MOC_INCLUDE("MissionCommandTree.h")
 Q_MOC_INCLUDE("MultiVehicleManager.h")
 Q_MOC_INCLUDE("QGCCorePlugin.h")
@@ -73,6 +75,7 @@ public:
 
     Q_PROPERTY(QString              appName                 READ    appName                 CONSTANT)
     Q_PROPERTY(LinkManager*         linkManager             READ    linkManager             CONSTANT)
+    Q_PROPERTY(MqttManager*         mqttManager             READ    mqttManager             CONSTANT)
     Q_PROPERTY(MultiVehicleManager* multiVehicleManager     READ    multiVehicleManager     CONSTANT)
     Q_PROPERTY(QGCMapEngineManager* mapEngineManager        READ    mapEngineManager        CONSTANT)
     Q_PROPERTY(QGCPositionManager*  qgcPositionManger       READ    qgcPositionManger       CONSTANT)
@@ -169,6 +172,7 @@ public:
 
     QString                 appName             ();
     LinkManager*            linkManager         ()  { return _linkManager; }
+    MqttManager*            mqttManager         ()  { return _mqttManager; }
     MultiVehicleManager*    multiVehicleManager ()  { return _multiVehicleManager; }
     QGCMapEngineManager*    mapEngineManager    ()  { return _mapEngineManager; }
     QGCPositionManager*     qgcPositionManger   ()  { return _qgcPositionManager; }
@@ -271,6 +275,7 @@ private:
 
     double                  _flightMapInitialZoom   = 17.0;
     LinkManager*            _linkManager            = nullptr;
+    MqttManager*            _mqttManager            = nullptr;
     MultiVehicleManager*    _multiVehicleManager    = nullptr;
     QGCCorePlugin*          _corePlugin             = nullptr;
     SettingsManager*        _settingsManager        = nullptr;

@@ -105,6 +105,72 @@ Item {
             enabled:                !viewer3DWindow.isOpen
         }
 
+        Rectangle{
+            width: 150
+            height: 200
+            color: "#212529"
+            opacity: 0.8
+            radius: 2
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 300
+            Column{
+                anchors.fill: parent
+                spacing: 2
+                leftPadding: 10
+                topPadding: 10
+                Text {
+                    id: currentOilQuantityId
+                    color: "#FFFFFF"
+                    text: qsTr("当前油量: 0L")
+                }
+                Text {
+                    id: totalOilQuantityId
+                    color: "#FFFFFF"
+                    text: qsTr("全部油量: 0L")
+                }
+                Text {
+                    id: remainingOilQuantityId
+                    color: "#FFFFFF"
+                    text: qsTr("剩余油量: 0L")
+                }
+                Text {
+                    id: remainingMileageId
+                    color: "#FFFFFF"
+                    text: qsTr("剩余里程: 0Km")
+                }
+                Text {
+                    id: drivingMileageId
+                    color: "#FFFFFF"
+                    text: qsTr("行驶里程: 0Km")
+                }
+                Text {
+                    id: remainingElectricityId
+                    color: "#FFFFFF"
+                    text: qsTr("剩余电量: 0%")
+                }
+                Text {
+                    id: batteryTemperatureId
+                    color: "#FFFFFF"
+                    text: qsTr("电池温度: 0°")
+                }
+            }
+        }
+
+        Connections {
+            target: QGroundControl.mqttManager
+            function onUpdateMessage(data){
+                currentOilQuantityId.text = "当前油量: %1L".arg(data["Oil"]["CurrentOilQuantity"])
+                totalOilQuantityId.text = "全部油量: %1L".arg(data["Oil"]["TotalOilQuantity"])
+                remainingOilQuantityId.text = "剩余油量: %1L".arg(data["Oil"]["RemainingOilQuantity"])
+                remainingMileageId.text = "剩余里程: %1Km".arg(data["Oil"]["RemainingMileage"])
+                drivingMileageId.text = "行驶里程: %1Km".arg(data["Oil"]["DrivingMileage"])
+                remainingElectricityId.text = "剩余电量: %1%".arg(data["Electricity"]["RemainingElectricity"])
+                batteryTemperatureId.text = "电池温度: %1°".arg(data["Electricity"]["BatteryTemperature"])
+            }
+        }
+
         // =====================雷达
         FlyViewLidar {
             id:         lidarControl

@@ -11,6 +11,7 @@
 
 #include "QGCApplication.h"
 #include "LinkManager.h"
+#include "MqttManager.h"
 #include "MAVLinkProtocol.h"
 #include "FirmwarePluginManager.h"
 #include "AppSettings.h"
@@ -164,6 +165,7 @@ void QGroundControlQmlGlobal::setToolbox(QGCToolbox* toolbox)
     _multiVehicleManager    = toolbox->multiVehicleManager();
     _corePlugin             = toolbox->corePlugin();
     _settingsManager        = toolbox->settingsManager();
+    _mqttManager            = toolbox->mqttManager();
 #ifndef NO_SERIAL_LINK
     _gpsRtkFactGroup        = GPSManager::instance()->gpsRtk()->gpsRtkFactGroup();
 #endif

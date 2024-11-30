@@ -3,6 +3,8 @@
 #include "QGCApplication.h"
 
 MqttManager::MqttManager(QGCApplication *app, QGCToolbox *toolbox) : QGCTool(app, toolbox){
+    // const QString hostName = _toolbox->settingsManager()->appSettings()->forwardMavlinkAPMSupportHostName()->rawValue().toString();
+    // qDebug() << "=============qqqqqqqqqqq===============: " << hostName;
     mMqttLink = new MqttLink("mqtt://110.187.226.202:1883", "QGC");
 }
 
@@ -20,7 +22,5 @@ void MqttManager::start(){
 }
 
 void MqttManager::handleMessage(const QVariantMap message){
-    const QString hostName = _toolbox->settingsManager()->appSettings()->forwardMavlinkAPMSupportHostName()->rawValue().toString();
-    qDebug() << "============================: " << hostName;
     emit updateMessage(message);
 }
