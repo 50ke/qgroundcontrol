@@ -51,6 +51,7 @@ class MqttLink : public QObject
 
 public:
     MqttLink(const QString &serverAddr, const QString &subTopic);
+     void publishedMessage(const QString &pubTopic, const QString &message);
 
 public slots:
     void start();

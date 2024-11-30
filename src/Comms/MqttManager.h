@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QThread>
 #include "QGCToolbox.h"
-
+#include <QDateTime>
 #include "MqttLink.h"
 
 class SettingManager;
@@ -17,6 +17,7 @@ public:
     explicit MqttManager(QGCApplication *app, QGCToolbox *toolbox);
     ~MqttManager();
     void start();
+    Q_INVOKABLE void changeGear(int value);
 
 public slots:
     void handleMessage(const QVariantMap newSetting);

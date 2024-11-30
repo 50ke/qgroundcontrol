@@ -1,5 +1,4 @@
 #include "MqttManager.h"
-#include "SettingsManager.h"
 #include "QGCApplication.h"
 
 MqttManager::MqttManager(QGCApplication *app, QGCToolbox *toolbox) : QGCTool(app, toolbox){
@@ -23,4 +22,15 @@ void MqttManager::start(){
 
 void MqttManager::handleMessage(const QVariantMap message){
     emit updateMessage(message);
+}
+
+void MqttManager::changeGear(int value){
+    QVariantMap cmd;
+    cmd.insert("Timestamp", QDateTime::currentMSecsSinceEpoch());
+    cmd.insert("Gear", value);
+
+    QJsonObject jsonObject = QJsonObject::fromVariantMap(cmd);
+    QJsonDocument jsonDocument(jsonObject);
+    QString jsonString = jsonDocument.toJson();
+    mMqttLink->publishedMessage("USV", jsonString);
 }

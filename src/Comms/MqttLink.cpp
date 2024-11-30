@@ -77,6 +77,22 @@ void MqttLink::subscribedMessage(const std::string &payload){
     emit notifyMessage(msg);
 }
 
+void MqttLink::publishedMessage(const QString &pubTopic, const QString &message){
+    try{
+        if(!mAsyncMqttClientPtr->is_connected()){
+            qWarning() << "[MqttLink]Waiting for Connecting.";
+            return;
+        }
+        std::string topic = pubTopic.toStdString();
+        std::string data = message.toStdString();
+
+        mqtt::message_ptr pubmsg = mqtt::make_message(topic, data, 1, false);
+        mAsyncMqttClientPtr->publish(pubmsg)->wait();
+    } catch (const std::exception& ex) {
+        qCritical() << "[MqttLink]Publish Message Error: " << ex.what();
+    }
+}
+
 void MqttLink::start(){
     try {
         mAsyncMqttClientPtr->set_callback(*mMqttLinkCallback);

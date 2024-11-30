@@ -155,6 +155,49 @@ Item {
                     color: "#FFFFFF"
                     text: qsTr("电池温度: 0°")
                 }
+                Item {
+                    width: 10
+                    height: 10
+                }
+                Row{
+                    spacing: 5
+                    RoundButton{
+                        width: 32
+                        height: 48
+                        display: AbstractButton.TextUnderIcon
+                        icon.source: "qrc:/qmlimages/vehicle-d.svg"
+                        text: "D"
+                        font.pixelSize: 12
+                        font.weight: Font.DemiBold
+                        onDoubleClicked: {
+                            QGroundControl.mqttManager.changeGear(0)
+                        }
+                    }
+                    RoundButton{
+                        width: 32
+                        height: 48
+                        display: AbstractButton.TextUnderIcon
+                        icon.source: "qrc:/qmlimages/vehicle-n.svg"
+                        text: "N"
+                        font.pixelSize: 12
+                        font.weight: Font.DemiBold
+                        onDoubleClicked: {
+                            QGroundControl.mqttManager.changeGear(1)
+                        }
+                    }
+                    RoundButton{
+                        width: 32
+                        height: 48
+                        display: AbstractButton.TextUnderIcon
+                        icon.source: "qrc:/qmlimages/vehicle-r.svg"
+                        text: "R"
+                        font.pixelSize: 12
+                        font.weight: Font.DemiBold
+                        onDoubleClicked: {
+                            QGroundControl.mqttManager.changeGear(2)
+                        }
+                    }
+                }
             }
         }
 
