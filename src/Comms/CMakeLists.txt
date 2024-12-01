@@ -4,11 +4,17 @@ add_subdirectory(MockLink)
 find_package(Qt6 REQUIRED COMPONENTS Core Network Qml Test Widgets)
 
 ############MQTT############
-find_package(PahoMqttCpp REQUIRED PATHS ${CMAKE_SOURCE_DIR}/libs/PahoMqttCpp/ReleaseLib)
-include_directories(${CMAKE_SOURCE_DIR}/libs/PahoMqttCpp/ReleaseLib/include)
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    message(STATUS "======> Add PahoMqttCpp Release Lib")
+    find_package(PahoMqttCpp REQUIRED PATHS ${CMAKE_SOURCE_DIR}/libs/PahoMqttCpp/ReleaseLib)
+    include_directories(${CMAKE_SOURCE_DIR}/libs/PahoMqttCpp/ReleaseLib/include)
+else()
+    message(STATUS "======> Add PahoMqttCpp Debug Lib")
+    find_package(PahoMqttCpp REQUIRED PATHS ${CMAKE_SOURCE_DIR}/libs/PahoMqttCpp/DebugLib)
+    include_directories(${CMAKE_SOURCE_DIR}/libs/PahoMqttCpp/DebugLib/include)
+endif()
 
 configure_file(QGC-Mqtt-Config.json ${CMAKE_CURRENT_BINARY_DIR}/QGC-Mqtt-Config.json COPYONLY)
-
 
 qt_add_library(Comms STATIC
     LinkConfiguration.cc
