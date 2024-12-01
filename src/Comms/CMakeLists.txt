@@ -4,8 +4,8 @@ add_subdirectory(MockLink)
 find_package(Qt6 REQUIRED COMPONENTS Core Network Qml Test Widgets)
 
 ############MQTT############
-find_package(PahoMqttCpp REQUIRED PATHS ${CMAKE_SOURCE_DIR}/libs/PahoMqttCpp)
-include_directories(${CMAKE_SOURCE_DIR}/libs/PahoMqttCpp/include)
+find_package(PahoMqttCpp REQUIRED PATHS ${CMAKE_SOURCE_DIR}/libs/PahoMqttCpp/ReleaseLib)
+include_directories(${CMAKE_SOURCE_DIR}/libs/PahoMqttCpp/ReleaseLib/include)
 
 configure_file(QGC-Mqtt-Config.json ${CMAKE_CURRENT_BINARY_DIR}/QGC-Mqtt-Config.json COPYONLY)
 
@@ -49,7 +49,6 @@ target_link_libraries(Comms
         Utilities
         ws2_32
         PahoMqttCpp::paho-mqttpp3-static
-        PahoMqttCpp::paho-mqtt3a-static
 )
 
 target_include_directories(Comms PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
