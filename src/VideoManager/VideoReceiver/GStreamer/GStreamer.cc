@@ -142,7 +142,6 @@ static void _setGstEnvVars()
     _qgcputenv("GST_PLUGIN_PATH", currentDir, "/../lib/gstreamer-1.0");
 #endif
 
-
 #endif
 }
 

@@ -124,11 +124,6 @@ Item {
                 leftPadding: 10
                 topPadding: 10
                 Text {
-                    id: currentOilQuantityId
-                    color: "#FFFFFF"
-                    text: qsTr("当前油量: 0L")
-                }
-                Text {
                     id: totalOilQuantityId
                     color: "#FFFFFF"
                     text: qsTr("全部油量: 0L")
@@ -136,7 +131,7 @@ Item {
                 Text {
                     id: remainingOilQuantityId
                     color: "#FFFFFF"
-                    text: qsTr("剩余油量: 0L")
+                    text: qsTr("剩余油量: 0%")
                 }
                 Text {
                     id: remainingMileageId
@@ -230,9 +225,8 @@ Item {
         Connections {
             target: QGroundControl.mqttManager
             function onUpdateMessage(data){
-                currentOilQuantityId.text = "当前油量: %1L".arg(data["Oil"]["CurrentOilQuantity"])
                 totalOilQuantityId.text = "全部油量: %1L".arg(data["Oil"]["TotalOilQuantity"])
-                remainingOilQuantityId.text = "剩余油量: %1L".arg(data["Oil"]["RemainingOilQuantity"])
+                remainingOilQuantityId.text = "剩余油量: %1%".arg(data["Oil"]["RemainingOilQuantity"])
                 remainingMileageId.text = "剩余里程: %1Km".arg(data["Oil"]["RemainingMileage"])
                 drivingMileageId.text = "行驶里程: %1Km".arg(data["Oil"]["DrivingMileage"])
                 remainingElectricityId.text = "剩余电量: %1%".arg(data["Electricity"]["RemainingElectricity"])
