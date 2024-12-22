@@ -18,6 +18,7 @@ public:
     ~MqttManager();
     void start();
     Q_INVOKABLE void changeGear(int value);
+    Q_INVOKABLE QString getVideoUrl();
     void loadConfig();
 
 public slots:
@@ -33,5 +34,6 @@ private:
     QString mMqttServerAddr{};
     QString mMqttSubTopic{};
     QString mMqttPubTopic{};
+    QString mVideoUrl{};
 };
 #endif // MQTTMANAGER_H

@@ -1,0 +1,6 @@
+{
+  "server": "mqtt://110.187.226.202:1883",
+  "subTopic": "FromUSV",
+  "pubTopic": "FromGCS",
+  "videoUrl": "rtmp://110.187.226.202:1935/live/lidar"
+}

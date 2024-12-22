@@ -12,7 +12,7 @@ MqttManager::~MqttManager(){
 }
 
 void MqttManager::loadConfig(){
-    QFile file(QStringLiteral(":/json/QGC-Mqtt-Config.json"));
+    QFile file(QStringLiteral("UGC-Config.json"));
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         throw std::runtime_error("Cannot read QGC-Mqtt-Config.json");
     }
@@ -25,6 +25,7 @@ void MqttManager::loadConfig(){
     this->mMqttServerAddr = jsonObject.value("server").toString();
     this->mMqttSubTopic = jsonObject.value("subTopic").toString();
     this->mMqttPubTopic = jsonObject.value("pubTopic").toString();
+    this->mVideoUrl = jsonObject.value("videoUrl").toString();
 }
 
 void MqttManager::start(){
@@ -52,4 +53,8 @@ void MqttManager::changeGear(int value){
     QJsonDocument jsonDocument(jsonObject);
     QString jsonString = jsonDocument.toJson();
     mMqttLink->publishedMessage(mMqttPubTopic, jsonString);
+}
+
+QString MqttManager::getVideoUrl(){
+    return this->mVideoUrl;
 }

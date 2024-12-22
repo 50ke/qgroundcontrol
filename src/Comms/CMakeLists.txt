@@ -14,8 +14,6 @@ else()
     include_directories(${CMAKE_SOURCE_DIR}/libs/PahoMqttCpp/DebugLib/include)
 endif()
 
-configure_file(QGC-Mqtt-Config.json ${CMAKE_CURRENT_BINARY_DIR}/QGC-Mqtt-Config.json COPYONLY)
-
 qt_add_library(Comms STATIC
     LinkConfiguration.cc
     LinkConfiguration.h

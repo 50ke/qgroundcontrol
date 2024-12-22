@@ -9,6 +9,7 @@ list(APPEND CMAKE_MODULE_PATH
 #######################################################
 #                Custom Build Configuration
 #######################################################
+configure_file(UGC-Config.json ${CMAKE_CURRENT_BINARY_DIR}/UGC-Config.json COPYONLY)
 
 include(CustomOptions)
 

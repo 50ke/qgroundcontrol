@@ -1,5 +1,0 @@
-{
-  "server": "mqtt://110.187.226.202:1883",
-  "subTopic": "FromUSV",
-  "pubTopic": "FromGCS"
-}

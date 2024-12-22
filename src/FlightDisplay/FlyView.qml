@@ -273,9 +273,7 @@ Item {
             }
 
             Component.onCompleted: {
-                console.log("================" + QGroundControl.settingsManager.videoSettings.rtspUrl.rawValue)
-                // frontPlayer.setSource("rtmp://ns8.indexforce.com/home/mystream");
-                frontPlayer.setSource("rtmp://110.187.226.202:1935/live/lidar")
+                frontPlayer.setSource(QGroundControl.mqttManager.getVideoUrl())
             }
         }
 
