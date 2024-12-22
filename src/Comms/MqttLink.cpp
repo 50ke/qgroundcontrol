@@ -38,7 +38,11 @@ void MqttLinkCallback::on_success(const mqtt::token &tok){}
 
 void MqttLinkCallback::connected(const std::string &cause){
     qInfo() << "[MqttLink]Connected.";
-    mMqttClientPtr->subscribe(mSubTopic, 1, nullptr, mSubActionListener);
+    auto subTopics  = mqtt::string_collection::create({mSubTopic+"/LIDAR", mSubTopic});
+    const std::vector<int> qos{1, 1};
+    mMqttClientPtr->subscribe(subTopics, qos, nullptr, mSubActionListener);
+
+    // mMqttClientPtr->subscribe(mSubTopic, 1, nullptr, mSubActionListener);
 }
 
 void MqttLinkCallback::connection_lost(const std::string &cause){

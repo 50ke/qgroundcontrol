@@ -36,7 +36,11 @@ void MqttManager::start(){
 }
 
 void MqttManager::handleMessage(const QVariantMap message){
-    emit updateMessage(message);
+    if(message.contains("Lidar")){
+        emit updateLidar(message);
+    }else{
+        emit updateMessage(message);
+    }
 }
 
 void MqttManager::changeGear(int value){

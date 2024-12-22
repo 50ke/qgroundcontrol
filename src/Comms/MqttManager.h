@@ -25,6 +25,7 @@ public slots:
 
 signals:
     void updateMessage(const QVariantMap newSetting);
+    void updateLidar(const QVariantMap newLidar);
 
 private:
     QThread mMqttLinkWorkThread;

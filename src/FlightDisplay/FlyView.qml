@@ -31,6 +31,7 @@ import QGroundControl.Vehicle
 import Viewer3D
 import QtMultimedia
 import org.freedesktop.gstreamer.Qt6GLVideoItem
+import MDKPlayer 1.0
 
 Item {
     id: _root
@@ -253,35 +254,71 @@ Item {
                     batteryTemperatureImgId.visible = false
                 }
             }
+            function onUpdateLidar(data){
+                lidarImgId.source = data["Lidar"]
+            }
         }
 
-        // =====================雷达
-        FlyViewLidar {
-            id:         lidarControl
-            pipView:  _lidarPipView
+        // =====================视频
+        Rectangle{
+            width: 300
+            height: 180
+            color: "#282C34"
+            anchors.left:           parent.left
+            anchors.bottom:         parent.bottom
+            anchors.margins:        _toolsMargin
+            MDKPlayer {
+                id: frontPlayer
+                anchors.fill: parent
+            }
+
+            Component.onCompleted: {
+                console.log("================" + QGroundControl.settingsManager.videoSettings.rtspUrl.rawValue)
+                // frontPlayer.setSource("rtmp://ns8.indexforce.com/home/mystream");
+                frontPlayer.setSource("rtmp://110.187.226.202:1935/live/lidar")
+            }
         }
 
-        PipView {
-            id:                     _lidarPipView
+        Rectangle{
+            width: 300
+            height: 180
+            color: "#282C34"
             anchors.right:           parent.right
             anchors.bottom:         parent.bottom
             anchors.margins:        _toolsMargin
-            item1IsFullSettingsKey: "MainFlyWindowIsMap"
-            item1:                  mapControl
-            item2:                  QGroundControl.lidarManager.hasVideo ? lidarControl : null
-            show:                   QGroundControl.lidarManager.hasVideo && !QGroundControl.lidarManager.fullScreen &&
-                                        (lidarControl.pipState.state === lidarControl.pipState.pipState || mapControl.pipState.state === mapControl.pipState.pipState)
-            z:                      QGroundControl.zOrderWidgets
-
-            property real leftEdgeBottomInset: visible ? width + anchors.margins : 0
-            property real bottomEdgeLeftInset: visible ? height + anchors.margins : 0
+            Image {
+                id: lidarImgId
+                anchors.fill: parent
+            }
         }
+
+
+        // FlyViewLidar {
+        //     id:         lidarControl
+        //     pipView:  _lidarPipView
+        // }
+
+        // PipView {
+        //     id:                     _lidarPipView
+        //     anchors.right:           parent.right
+        //     anchors.bottom:         parent.bottom
+        //     anchors.margins:        _toolsMargin
+        //     item1IsFullSettingsKey: "MainFlyWindowIsMap"
+        //     item1:                  mapControl
+        //     item2:                  QGroundControl.lidarManager.hasVideo ? lidarControl : null
+        //     show:                   QGroundControl.lidarManager.hasVideo && !QGroundControl.lidarManager.fullScreen &&
+        //                                 (lidarControl.pipState.state === lidarControl.pipState.pipState || mapControl.pipState.state === mapControl.pipState.pipState)
+        //     z:                      QGroundControl.zOrderWidgets
+
+        //     property real leftEdgeBottomInset: visible ? width + anchors.margins : 0
+        //     property real bottomEdgeLeftInset: visible ? height + anchors.margins : 0
+        // }
 
         // ======================相机
-        FlyViewVideo {
-            id:         videoControl
-            pipView:    _pipView
-        }
+        // FlyViewVideo {
+        //     id:         videoControl
+        //     pipView:    _pipView
+        // }
 
         PipView {
             id:                     _pipView
