@@ -20,6 +20,7 @@ public:
     Q_INVOKABLE void changeGear(int value);
     Q_INVOKABLE QString getVideoUrl();
     void loadConfig();
+    void sendJoystickCmd(QByteArray cmd);
 
 public slots:
     void handleMessage(const QVariantMap newSetting);

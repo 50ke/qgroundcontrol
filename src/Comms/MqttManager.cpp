@@ -55,6 +55,17 @@ void MqttManager::changeGear(int value){
     mMqttLink->publishedMessage(mMqttPubTopic, jsonString);
 }
 
+void MqttManager::sendJoystickCmd(QByteArray cmd){
+    QVariantMap data;
+    data.insert("Timestamp", QDateTime::currentMSecsSinceEpoch());
+    data.insert("Cmd", cmd);
+
+    QJsonObject jsonObject = QJsonObject::fromVariantMap(data);
+    QJsonDocument jsonDocument(jsonObject);
+    QString jsonString = jsonDocument.toJson();
+    mMqttLink->publishedMessage(mMqttPubTopic + "/Joystick", jsonString);
+}
+
 QString MqttManager::getVideoUrl(){
     return this->mVideoUrl;
 }

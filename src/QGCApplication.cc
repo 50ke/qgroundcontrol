@@ -42,6 +42,7 @@
 #include "JsonHelper.h"
 #include "LinkManager.h"
 #include "MqttManager.h"
+#include "JoystickSerialPortManager.h"
 #include "LogDownloadController.h"
 #include "MAVLinkChartController.h"
 #include "MAVLinkConsoleController.h"
@@ -311,6 +312,7 @@ void QGCApplication::init()
     }
 
     _toolbox->mqttManager()->start();
+    _toolbox->joystickSerialPortManager()->start();
 }
 
 void QGCApplication::_initForNormalAppBoot()

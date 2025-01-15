@@ -20,6 +20,7 @@ class MultiVehicleManager;
 class QGCApplication;
 class QGCCorePlugin;
 class SettingsManager;
+class JoystickSerialPortManager;
 
 /// This is used to manage all of our top level services/tools
 class QGCToolbox : public QObject {
@@ -30,6 +31,7 @@ public:
 
     LinkManager*                linkManager             () { return _linkManager; }
     MqttManager*                mqttManager             () { return _mqttManager; }
+    JoystickSerialPortManager*  joystickSerialPortManager() { return _joystickSerialPortManager; }
     MAVLinkProtocol*            mavlinkProtocol         () { return _mavlinkProtocol; }
     MultiVehicleManager*        multiVehicleManager     () { return _multiVehicleManager; }
     QGCCorePlugin*              corePlugin              () { return _corePlugin; }
@@ -41,6 +43,7 @@ private:
 
     LinkManager*                _linkManager            = nullptr;
     MqttManager*                _mqttManager            = nullptr;
+    JoystickSerialPortManager*  _joystickSerialPortManager = nullptr;
     MAVLinkProtocol*            _mavlinkProtocol        = nullptr;
     MultiVehicleManager*        _multiVehicleManager    = nullptr;
     QGCCorePlugin*              _corePlugin             = nullptr;
