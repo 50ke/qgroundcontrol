@@ -3,8 +3,10 @@
 JoystickSerialPortManager::JoystickSerialPortManager(QGCApplication *app, QGCToolbox *toolbox) : QGCTool(app, toolbox){}
 
 JoystickSerialPortManager::~JoystickSerialPortManager(){
-    mJoystickSerialPortManagerWorkThread.quit();
-    mJoystickSerialPortManagerWorkThread.wait();
+    mJoystickSerialPortReadThread.quit();
+    mJoystickSerialPortReadThread.wait();
+    mJoystickSerialPortDetectThread.quit();
+    mJoystickSerialPortDetectThread.wait();
 }
 
 void JoystickSerialPortManager::autoDetect(){
@@ -56,7 +58,6 @@ bool JoystickSerialPortManager::isJoystick(QSerialPort &serialPort){
 
 void JoystickSerialPortManager::doWork(){
     try {
-        autoDetect();
         if(mSerialPort == nullptr){
             qDebug() << "[JoystickSerialPortManager]serial port not found.";
         }
@@ -73,10 +74,16 @@ void JoystickSerialPortManager::doWork(){
 }
 
 void JoystickSerialPortManager::start(){
-    this->moveToThread(&mJoystickSerialPortManagerWorkThread);
-    connect(&mJoystickSerialPortManagerWorkThread, &QThread::started, this, &JoystickSerialPortManager::doWork);
-    connect(&mJoystickSerialPortManagerWorkThread, &QThread::finished, this, &QObject::deleteLater);
-    mJoystickSerialPortManagerWorkThread.start();
+    this->moveToThread(&mJoystickSerialPortDetectThread);
+    connect(&mJoystickSerialPortDetectThread, &QThread::started, this, &JoystickSerialPortManager::autoDetect);
+    connect(&mJoystickSerialPortDetectThread, &QThread::finished, this, &QObject::deleteLater);
+
+    this->moveToThread(&mJoystickSerialPortReadThread);
+    connect(&mJoystickSerialPortReadThread, &QThread::started, this, &JoystickSerialPortManager::doWork);
+    connect(&mJoystickSerialPortReadThread, &QThread::finished, this, &QObject::deleteLater);
+
+    mJoystickSerialPortDetectThread.start();
+    mJoystickSerialPortReadThread.start();
 }
 
 

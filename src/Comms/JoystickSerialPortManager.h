@@ -22,7 +22,8 @@ public:
 signals:
     void updateJoystickSerialPort(const QVariantMap newSerialPort);
 private:
-    QThread mJoystickSerialPortManagerWorkThread;
+    QThread mJoystickSerialPortReadThread;
+    QThread mJoystickSerialPortDetectThread;
     QSerialPort *mSerialPort = nullptr;
 };
 
