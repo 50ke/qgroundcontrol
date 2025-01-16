@@ -35,6 +35,7 @@ qt_add_library(Comms STATIC
     MqttManager.cpp
     JoystickSerialPortManager.h
     JoystickSerialPortManager.cpp
+    JoystickLink.h JoystickLink.cpp
 )
 
 target_link_libraries(Comms

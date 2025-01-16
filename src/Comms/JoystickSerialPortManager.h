@@ -8,6 +8,7 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include "MqttManager.h"
+#include "JoystickLink.h"
 
 class JoystickSerialPortManager : public QGCTool
 {
@@ -16,15 +17,12 @@ public:
     explicit JoystickSerialPortManager(QGCApplication *app, QGCToolbox *toolbox);
     ~JoystickSerialPortManager();
     void start();
-    void autoDetect();
-    bool isJoystick(QSerialPort &serialPort);
-    void doWork();
 signals:
     void updateJoystickSerialPort(const QVariantMap newSerialPort);
 private:
+    JoystickLink *mJoystickLink = nullptr;
     QThread mJoystickSerialPortReadThread;
     QThread mJoystickSerialPortDetectThread;
-    QSerialPort *mSerialPort = nullptr;
 };
 
 #endif // JOYSTICKSERIALPORTMANAGER_H
